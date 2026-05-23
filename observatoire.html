@@ -78,6 +78,7 @@ html, body {
 /* ===== SIDEBAR ===== */
 .sidebar {
   grid-row: 2;
+  grid-column: 1; /* explicite pour la lisibilité */
   background: var(--c-card);
   border-right: 1px solid var(--c-border);
   overflow-y: auto;
@@ -193,6 +194,7 @@ html, body {
   background: var(--c-card);
   border-radius: var(--radius);
   border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-card);
   padding: 1rem;
   cursor: pointer;
   transition: box-shadow var(--transition), transform var(--transition);
@@ -273,6 +275,7 @@ html, body {
   justify-content: center;
   padding: 1rem;
 }
+/* [hidden] suffit pour cacher la modal ; display:none renforce la compatibilité avec vieux navigateurs */
 .modal-overlay[hidden] { display: none; }
 .modal-box {
   background: var(--c-card);
@@ -403,7 +406,7 @@ html, body {
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar__label">Thématiques</div>
-    <nav class="nav-list" id="nav-list">
+    <nav class="nav-list" id="nav-list" aria-label="Thématiques">
       <div class="nav-pill" id="nav-pill"></div>
       <!-- items injectés par JS -->
     </nav>
@@ -1294,9 +1297,7 @@ L'évolution du nombre d'associations est donc à prendre avec précaution, car 
 </footer>
 </div>
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<!-- Google Fonts already in <head> -->
 
 <script>
 /* ===== CONFIGURATION ===== */
@@ -1321,10 +1322,391 @@ const HERO_KPIS = {
 let allIndicators = [];
 let activeTheme = 'demo';
 
-/* JS functions will be added in Tasks 2-6 */
+/* ===== TASK 2 : COUCHE DONNÉES ===== */
+
+/**
+ * Convertit un numéro de série Excel (40000–60000) en date française.
+ * Ex: 45689 → "01/02/2025"
+ */
+function excelDateToStr(v) {
+  const n = parseFloat(String(v).replace(/\s/g, '').replace(',', '.'));
+  if (!isFinite(n) || n < 40000 || n > 60000) return String(v);
+  const d = new Date(Date.UTC(1899, 11, 30) + n * 86400000);
+  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric', timeZone:'UTC' });
+}
+
+/**
+ * Extrait les lignes d'un tableau .data-table dans un élément indicateur.
+ * Retourne [{dept, raw, num}] — les 5 depts + ligne PDL éventuelle.
+ * dept 49 = Maine-et-Loire (49)
+ */
+function parseTableRows(indEl) {
+  const rows = [];
+  indEl.querySelectorAll('table.data-table tbody tr').forEach(tr => {
+    const cells = tr.querySelectorAll('td');
+    if (cells.length < 2) return;
+    const dept = cells[0].textContent.trim();
+    const raw  = cells[1].textContent.trim();
+    // Extraire la valeur numérique (supprimer espaces insécables, %, unités)
+    const cleaned = raw.replace(/\u00a0/g, '').replace(/\s/g, '').replace(',', '.');
+    const num  = parseFloat(cleaned.replace(/[^0-9.\.\-]/g, ''));
+    rows.push({ dept, raw, num: isFinite(num) ? num : null });
+  });
+  return rows;
+}
+
+/**
+ * Parse tous les indicateurs depuis le #data-source caché.
+ * Retourne un tableau de 108 objets {id, num, title, theme, source, date, note, imgs, rows, deptRows, maxVal, val49, raw49}.
+ */
+function parseIndicators() {
+  const src = document.getElementById('data-source');
+  if (!src) return [];
+  const depts = ['44','49','53','72','85'];
+  const indicators = [];
+  src.querySelectorAll('section.indicator').forEach(indEl => {
+    const id    = indEl.id || '';
+    // Numéro indicateur depuis .ind-num
+    const numEl = indEl.querySelector('.ind-num');
+    const num   = numEl ? parseInt(numEl.textContent.trim(), 10) : 0;
+    // Titre (h3 sans le span)
+    const h3    = indEl.querySelector('h3');
+    const title = h3 ? h3.textContent.replace(numEl ? numEl.textContent : '', '').trim() : '';
+    // Thème depuis section.theme parente
+    const themeEl = indEl.closest('section.theme');
+    const theme   = themeEl ? themeEl.id : '';
+    // Meta : source, date, note
+    const metaEl = indEl.querySelector('p.meta');
+    let source = '', date = '', note = '';
+    if (metaEl) {
+      const mt = metaEl.innerText || metaEl.textContent;
+      const ms = mt.match(/Source\s*:\s*([^·\n]+)/i); if (ms) source = ms[1].trim();
+      const md = mt.match(/Date\s*:\s*([^·\n]+)/i);   if (md) date   = excelDateToStr(md[1].trim());
+      const mn = mt.match(/Note\s*:\s*([^·\n]+)/i);   if (mn) note   = mn[1].trim();
+    }
+    // Images (bar, map, hist, table)
+    const imgs = {};
+    indEl.querySelectorAll('img[src]').forEach(img => {
+      const src2 = img.getAttribute('src');
+      if (src2.endsWith('-bar.png'))  imgs.bar  = src2;
+      if (src2.endsWith('-map.png'))  imgs.map  = src2;
+      if (src2.endsWith('-hist.png')) imgs.hist = src2;
+    });
+    // Lignes tableau
+    const rows = parseTableRows(indEl);
+    // Lignes par département (les 5 depts, hors PDL total)
+    const deptRows = rows.filter(r => /\([0-9]{2}\)/.test(r.dept));
+    // Max sur les 5 depts
+    const maxVal = deptRows.reduce((m, r) => r.num !== null && r.num > m ? r.num : m, 0);
+    // Valeur Maine-et-Loire 49
+    const row49  = deptRows.find(r => r.dept.includes('(49)'));
+    const val49  = row49 ? row49.num  : null;
+    const raw49  = row49 ? row49.raw  : '';
+    indicators.push({ id, num, title, theme, source, date, note, imgs, rows, deptRows, maxVal, val49, raw49 });
+  });
+  return indicators;
+}
+
+/* ===== TASK 3 : RENDU CARD GRID ===== */
+
+/**
+ * Parse une valeur brute texte en float (gère espaces insécables, virgules).
+ */
+function parseVal(raw) {
+  if (!raw) return null;
+  const n = parseFloat(String(raw).replace(/\u00a0/g, '').replace(/\s/g, '').replace(',', '.').replace(/[^0-9.\-]/g, ''));
+  return isFinite(n) ? n : null;
+}
+
+/**
+ * Génère le HTML des barres mini (5 depts).
+ * dept 49 en rouge, les autres en accent.
+ */
+function renderMiniBar(deptRows, maxVal) {
+  if (!deptRows || deptRows.length === 0) return '';
+  const max = maxVal || 1;
+  return deptRows.map(r => {
+    const pct   = r.num !== null ? Math.min(100, Math.round(r.num / max * 100)) : 0;
+    const code  = (r.dept.match(/\(([0-9]{2})\)/) || [])[1] || '';
+    const focus = code === '49';
+    const cls   = focus ? 'bar-row bar-row--focus' : 'bar-row';
+    return `<div class="${cls}">
+      <span class="bar-dept">${code}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <span class="bar-val">${r.raw}</span>
+    </div>`;
+  }).join('');
+}
+
+/**
+ * Injecte les cartes dans #card-grid pour les indicateurs du thème actif.
+ */
+function renderCards(indicators) {
+  const grid = document.getElementById('card-grid');
+  if (!grid) return;
+  const filtered = indicators.filter(ind => ind.theme === activeTheme);
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="card-empty">Pas de données pour cette thématique.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(ind => {
+    const bars = renderMiniBar(ind.deptRows, ind.maxVal);
+    const val  = ind.raw49 || (ind.val49 !== null ? String(ind.val49) : '—');
+    return `<article class="ind-card" data-id="${ind.id}" tabindex="0" role="button" aria-label="Indicateur ${ind.num} : ${ind.title}">
+      <div class="ind-card__header">
+        <span class="ind-card__num">${String(ind.num).padStart(2,'0')}</span>
+        <span class="ind-card__title">${ind.title}</span>
+      </div>
+      <div class="ind-card__bars">${bars}</div>
+      <div class="ind-card__footer">
+        <span>${ind.source ? ind.source.substring(0,28) + (ind.source.length > 28 ? '…' : '') : ''}</span>
+        <span style="color:var(--c-focus);font-weight:700">${val}</span>
+      </div>
+    </article>`;
+  }).join('');
+  // Attacher les événements
+  grid.querySelectorAll('.ind-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id  = card.dataset.id;
+      const ind = allIndicators.find(i => i.id === id);
+      if (ind) openModal(ind);
+    });
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') card.click();
+    });
+  });
+}
+
+/* ===== TASK 4 : HERO KPIs ===== */
+
+/**
+ * Retourne la valeur dept 49 formatée d'un indicateur via son index dans allIndicators.
+ */
+function getKpiVal(ind) {
+  if (!ind) return '—';
+  return ind.raw49 || (ind.val49 !== null ? ind.val49.toLocaleString('fr-FR') : '—');
+}
+
+/**
+ * Rend le bandeau Hero avec 4 KPIs pour le thème actif.
+ * Return early si le thème n'est pas dans HERO_KPIS.
+ */
+function renderHero(themeId) {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  const kpis = HERO_KPIS[themeId];
+  if (!kpis) { hero.innerHTML = ''; return; }
+  // Indicateurs filtrés par thème
+  const themeInds = allIndicators.filter(i => i.theme === themeId);
+  hero.innerHTML = kpis.map(([idx, label]) => {
+    const ind = themeInds[idx] || null;
+    const val = getKpiVal(ind);
+    return `<div class="kpi-tile">
+      <div class="kpi-tile__value">${val}</div>
+      <div class="kpi-tile__label">${label}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ===== TASK 5 : SIDEBAR ANIMÉE ===== */
+
+/**
+ * Génère les items de navigation dans #nav-list depuis THEMES.
+ */
+function renderSidebar() {
+  const nav = document.getElementById('nav-list');
+  if (!nav) return;
+  const pill = document.getElementById('nav-pill');
+  // Vider sauf la pillule
+  nav.innerHTML = '';
+  if (pill) nav.appendChild(pill);
+
+  THEMES.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-item' + (t.id === activeTheme ? ' active' : '');
+    btn.dataset.theme = t.id;
+    btn.setAttribute('type', 'button');
+    const countStr = t.count > 0 ? `<span class="nav-item__count">${t.count}</span>` : '';
+    btn.innerHTML = `${t.label}${countStr}`;
+    btn.addEventListener('click', () => switchTheme(t.id));
+    nav.appendChild(btn);
+  });
+  // Positionner la pillule sur l'item actif
+  const activeBtn = nav.querySelector('.nav-item.active');
+  if (activeBtn) movePill(activeBtn);
+}
+
+/**
+ * Déplace la pillule animée vers le bouton actif.
+ */
+function movePill(btn) {
+  const pill = document.getElementById('nav-pill');
+  if (!pill || !btn) return;
+  pill.style.top    = btn.offsetTop + 'px';
+  pill.style.height = btn.offsetHeight + 'px';
+}
+
+/**
+ * Change le thème actif : filtre cartes, met à jour hero, déplace pill, scrolle.
+ */
+function switchTheme(themeId) {
+  activeTheme = themeId;
+  // Mettre à jour les classes nav
+  document.querySelectorAll('#nav-list .nav-item').forEach(btn => {
+    const active = btn.dataset.theme === themeId;
+    btn.classList.toggle('active', active);
+    if (active) movePill(btn);
+  });
+  renderCards(allIndicators);
+  renderHero(themeId);
+  // Scroll haut de la zone cartes
+  const wrap = document.querySelector('.card-grid-wrap');
+  if (wrap) wrap.scrollTop = 0;
+  // Fermer la sidebar sur mobile
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar && window.innerWidth <= 1023) sidebar.classList.remove('open');
+}
+
+/* ===== TASK 6 : MODAL 4 ONGLETS ===== */
+
+let currentInd = null;
+
+/**
+ * Ouvre la modal pour un indicateur donné.
+ * @param {Object} ind — objet indicateur complet
+ */
+function openModal(ind) {
+  currentInd = ind;
+  const overlay = document.getElementById('modal-overlay');
+  const title   = document.getElementById('modal-title');
+  const meta    = document.getElementById('modal-meta');
+  const tabs    = document.getElementById('modal-tabs');
+  const body    = document.getElementById('modal-body');
+  if (!overlay) return;
+
+  title.textContent = `${String(ind.num).padStart(2,'0')} — ${ind.title}`;
+  let metaParts = [];
+  if (ind.source) metaParts.push('Source : ' + ind.source);
+  if (ind.date)   metaParts.push('Date : '   + ind.date);
+  if (ind.note)   metaParts.push('Note : '   + ind.note);
+  meta.textContent = metaParts.join(' · ');
+
+  // Construire les onglets disponibles
+  const availTabs = [];
+  if (ind.imgs.bar)  availTabs.push({ id:'tab-bar',  label:'📊 Graphique', imgKey:'bar'  });
+  if (ind.imgs.map)  availTabs.push({ id:'tab-map',  label:'🗺 Carte',     imgKey:'map'  });
+  if (ind.imgs.hist) availTabs.push({ id:'tab-hist', label:'📈 Historique',imgKey:'hist' });
+  availTabs.push({ id:'tab-table', label:'📋 Tableau', imgKey:null });
+
+  // Injecter les onglets
+  tabs.innerHTML = availTabs.map((t, i) =>
+    `<button class="modal-tab${i === 0 ? ' active' : ''}" data-tab="${t.id}" type="button">${t.label}</button>`
+  ).join('');
+
+  // Injecter les panes
+  body.innerHTML = availTabs.map((t, i) => {
+    let content = '';
+    if (t.imgKey && ind.imgs[t.imgKey]) {
+      content = `<img src="${ind.imgs[t.imgKey]}" alt="${t.label}" loading="lazy">`;
+    } else if (t.id === 'tab-table') {
+      content = buildTablePane(ind);
+    }
+    return `<div class="modal-pane${i === 0 ? ' active' : ''}" id="${t.id}">${content}</div>`;
+  }).join('');
+
+  // Attacher les clics d'onglets
+  tabs.querySelectorAll('.modal-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  overlay.removeAttribute('hidden');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modal-close').focus();
+}
+
+/** Construit le HTML du tableau départemental. */
+function buildTablePane(ind) {
+  if (!ind.rows || ind.rows.length === 0) return '<p style="padding:1rem;color:var(--c-muted)">Aucune donnée disponible.</p>';
+  const rowsHtml = ind.rows.map(r => {
+    const is49  = r.dept.includes('(49)');
+    const isPdl = tr => /Total/i.test(r.dept);
+    const cls   = is49 ? ' class="focus-row"' : (r.dept.includes('Total') ? ' class="pdl"' : '');
+    return `<tr${cls}><td>${r.dept}</td><td class="num">${r.raw}</td></tr>`;
+  }).join('');
+  return `<table class="data-table">
+    <thead><tr><th>Département</th><th>Valeur (dept 49 en rouge)</th></tr></thead>
+    <tbody>${rowsHtml}</tbody>
+  </table>`;
+}
+
+/**
+ * Change l'onglet actif dans la modal.
+ */
+function switchTab(tabId) {
+  document.querySelectorAll('#modal-tabs .modal-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabId);
+  });
+  document.querySelectorAll('#modal-body .modal-pane').forEach(pane => {
+    pane.classList.toggle('active', pane.id === tabId);
+  });
+}
+
+/**
+ * Ferme la modal.
+ */
+function closeModal() {
+  const overlay = document.getElementById('modal-overlay');
+  if (overlay) overlay.setAttribute('hidden', '');
+  document.body.style.overflow = '';
+  currentInd = null;
+}
+
+/* ===== INITIALISATION ===== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('ObservatoireVA shell loaded — JS functions pending Tasks 2-6');
+  // Task 2 : parser les indicateurs
+  allIndicators = parseIndicators();
+
+  // Task 5 : sidebar
+  renderSidebar();
+
+  // Task 4 : hero KPIs
+  renderHero(activeTheme);
+
+  // Task 3 : cartes
+  renderCards(allIndicators);
+
+  // Task 6 : modal — bouton fermer
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Task 7 : hamburger menu mobile
+  const toggle  = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
+  if (toggle && sidebar) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+    // Fermer en cliquant en dehors
+    document.addEventListener('click', e => {
+      if (sidebar.classList.contains('open') &&
+          !sidebar.contains(e.target) &&
+          e.target !== toggle) {
+        sidebar.classList.remove('open');
+      }
+    });
+  }
+
+  // Recalculer position pillule au resize
+  window.addEventListener('resize', () => {
+    const activeBtn = document.querySelector('#nav-list .nav-item.active');
+    if (activeBtn) movePill(activeBtn);
+  });
 });
 </script>
 </body>
