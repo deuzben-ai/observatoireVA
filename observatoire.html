@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Observatoire de la vie associative — Pays de la Loire</title>
 <meta name="description" content="Chiffres clés de la vie associative en Pays de la Loire — cartes et graphiques générés par R"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET & VARIABLES ===== */
 :root {
@@ -352,13 +354,23 @@ html, body {
 .modal-pane .data-table tr.focus-row { background: #fef2f2; }
 .modal-pane .data-table tr.focus-row td { color: var(--c-focus); font-weight: 700; }
 
+#sidebar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--c-muted);
+  margin-left: .5rem;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1023px) {
   .app-shell { grid-template-columns: 1fr; }
   .sidebar { display: none; }
   .sidebar.open { display: block; position: fixed; inset: 0; z-index: 50; width: var(--sidebar-w); box-shadow: 4px 0 20px rgba(0,0,0,.2); }
   .card-grid { grid-template-columns: repeat(2, 1fr); }
-  #sidebar-toggle { display: block !important; }
+  #sidebar-toggle { display: block; }
 }
 @media (max-width: 600px) {
   .card-grid { grid-template-columns: 1fr; }
@@ -383,8 +395,7 @@ html, body {
       RNA réf. <strong>01/02/2025</strong><br>
       296 graphiques · 108 indicateurs
     </div>
-    <button id="sidebar-toggle" aria-label="Menu"
-      style="display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--c-muted);margin-left:.5rem">
+    <button id="sidebar-toggle" aria-label="Menu">
       ☰
     </button>
   </header>
