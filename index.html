@@ -116,20 +116,26 @@ html, body {
   align-items: center;
   gap: 0.5rem;
   font-family: 'Outfit', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
   color: var(--c-text);
-  line-height: 1.15;
+  line-height: 1.1;
   text-align: center;
   justify-content: center;
+  white-space: nowrap;
 }
 .app-header__sub {
-  font-size: .8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
   color: var(--c-muted);
-  font-weight: 500;
-  margin-top: 0.1rem;
+  margin-top: 0.25rem;
   text-align: center;
+  justify-content: center;
 }
 /* Bloc droite : focus + aide */
 .app-header__right {
@@ -964,11 +970,11 @@ html, body {
 
     <!-- Bloc titre centré -->
     <div class="app-header__center">
-      <h1 class="app-header__title">
-        Observatoire de la vie associative
+      <h1 class="app-header__title">Observatoire de la vie associative</h1>
+      <div class="app-header__sub" id="header-sub">
         <span class="focus-badge-pill" id="header-badge">R</span>
-      </h1>
-      <div class="app-header__sub" id="header-sub">Pays de la Loire (Région)</div>
+        Pays de la Loire
+      </div>
     </div>
 
     <!-- Bloc droite : sélecteur de focus + aide + hamburger -->
@@ -1945,12 +1951,12 @@ const DEPT_COLORS = {
 };
 
 const DEPT_NAMES = {
-  'region': 'Pays de la Loire (Région)',
-  '44': 'Loire-Atlantique (44)',
-  '49': 'Maine-et-Loire (49)',
-  '53': 'Mayenne (53)',
-  '72': 'Sarthe (72)',
-  '85': 'Vendée (85)',
+  'region': 'Pays de la Loire',
+  '44': 'Loire-Atlantique',
+  '49': 'Maine-et-Loire',
+  '53': 'Mayenne',
+  '72': 'Sarthe',
+  '85': 'Vendée',
 };
 
 /**
@@ -2435,11 +2441,11 @@ function switchFocus(focusCode) {
   document.documentElement.style.setProperty('--c-focus-bg', colors.bg);
   
   // 3. Mise à jour du badge et du sous-titre du header
-  const badge = document.getElementById('header-badge');
-  if (badge) badge.textContent = focusCode === 'region' ? 'R' : focusCode;
-  
   const sub = document.getElementById('header-sub');
-  if (sub) sub.textContent = DEPT_NAMES[focusCode];
+  if (sub) {
+    // Badge coloré + nom du territoire dans le sous-titre
+    sub.innerHTML = `<span class="focus-badge-pill">${focusCode === 'region' ? 'R' : focusCode}</span> ${DEPT_NAMES[focusCode]}`;
+  }
   
   // 4. Re-rendu des cartes et du hero
   renderCards(allIndicators);
