@@ -807,31 +807,31 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  border: none;
+  border: 2.5px solid rgba(255, 255, 255, 0.85);
   color: #fff;
   cursor: pointer;
   transition: all var(--transition);
   outline: none;
   flex-shrink: 0;
   padding: 0;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.55), 0 0 0 3px rgba(99, 102, 241, 0.18);
 }
 .help-btn svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.35rem;
+  height: 1.35rem;
   stroke: #fff;
   fill: none;
-  stroke-width: 2;
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 .help-btn:hover {
   background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.65), 0 0 0 4px rgba(99, 102, 241, 0.22);
   transform: scale(1.12) rotate(-6deg);
 }
 
@@ -1129,7 +1129,7 @@ html, body {
     </section>
 <section class="indicator" id="ind-demo-04-ombre-d-associations-actives-pour-1000-habitants">
       <h3><span class="ind-num">4</span> Nombre d’associations actives pour 1000 habitants*</h3>
-      <p class="meta">Source : DATAGOUV – Fichier RNA_waldec
+      <p class="meta">Source : DATAGOUV – Fichier RNA_waldec
 *Insee RP 2022 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/demo-04-ombre-d-associations-actives-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/demo-04-ombre-d-associations-actives-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/demo-04-ombre-d-associations-actives-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1223,7 +1223,7 @@ html, body {
 <section class="theme" id="emploi-tb">
       <h2>Emploi — tableau de bord</h2>
       <p class="theme-intro">14 indicateurs — fichier : TableauxBord_ChiffresClesAsso-Version-web_2025-12.xlsx</p>
-      <nav class="subnav"><a href="#ind-emploi-tb-01-ombre-d-associations-employeuses">Nombre d'associations employeuses</a><a href="#ind-emploi-tb-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en">Evolution annuelle du nb d'associations employeuses - dernières années connues (en %)</a><a href="#ind-emploi-tb-03-epartition-par-departement-du-nbre-d-associations-employeuses-total-100">Répartition par département du nbre d'associations employeuses (total = 100%)</a><a href="#ind-emploi-tb-04-art-des-associations-employeuses-en-parmi-les-associations-actives-du-waldeck">Part des associations employeuses (en %) 
+      <nav class="subnav"><a href="#ind-emploi-tb-01-ombre-d-associations-employeuses">Nombre d'associations employeuses</a><a href="#ind-emploi-tb-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en">Evolution annuelle du nb d'associations employeuses - dernières années connues (en %)</a><a href="#ind-emploi-tb-03-epartition-par-departement-du-nbre-d-associations-employeuses-total-100">Répartition par département du nbre d'associations employeuses (total = 100%)</a><a href="#ind-emploi-tb-04-art-des-associations-employeuses-en-parmi-les-associations-actives-du-waldeck">Part des associations employeuses (en %) 
 [parmi les associations actives du RNA_waldeck]</a><a href="#ind-emploi-tb-05-ombre-de-salaries-en-associations">Nombre de salariés en associations</a><a href="#ind-emploi-tb-06-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en">Evolution annuelle du nb de salariés en association - dernières années connues (en %)</a><a href="#ind-emploi-tb-07-epartition-par-departement-du-nbre-de-salaries-total-100">Répartition par département du nbre de salariés (total = 100%)</a><a href="#ind-emploi-tb-08-ombre-moyen-de-salaries-par-association">Nombre moyen de salariés par association</a><a href="#ind-emploi-tb-09-art-des-salaries-en-association-parmi-l-ensemble-des-salaries-en">Part des salariés en association parmi l'ensemble des salariés (en %)</a><a href="#ind-emploi-tb-10-ombre-d-en-associations">Nombre d'ETP en associations</a><a href="#ind-emploi-tb-11-epartition-par-departement-du-nbre-d-total-100">Répartition par département du nbre d'ETP (total = 100%)</a><a href="#ind-emploi-tb-12-ombre-moyen-d-par-association">Nombre moyen d'ETP par association</a><a href="#ind-emploi-tb-13-apport-entre-le-nombre-de-salaries-et-le-nombre-d">Rapport entre le nombre de salariés et le nombre d'ETP</a><a href="#ind-emploi-tb-14-oids-des-remunerations-des-associations-dans-l-ensemble-des-remunerations-en">Poids des rémunérations des associations dans l'ensemble des rémunérations (en %)</a></nav>
       <section class="indicator" id="ind-emploi-tb-01-ombre-d-associations-employeuses">
       <h3><span class="ind-num">17</span> Nombre d'associations employeuses</h3>
@@ -1234,7 +1234,7 @@ html, body {
     </section>
 <section class="indicator" id="ind-emploi-tb-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en">
       <h3><span class="ind-num">18</span> Evolution annuelle du nb d'associations employeuses - dernières années connues (en %)</h3>
-      <p class="meta">Source : Florès 2019 · Date : déc-19
+      <p class="meta">Source : Florès 2019 · Date : déc-19
 déc-18</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/emploi-tb-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/emploi-tb-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       
@@ -1248,7 +1248,7 @@ déc-18</p>
       <div class="table-scroll"><table class="data-table"><thead><tr><th>Département</th><th>Valeur</th></tr></thead><tbody><tr><td>Loire-Atlantique (44)</td><td class="num">41,0 %</td></tr><tr><td>Maine-et-Loire (49)</td><td class="num">25,0 %</td></tr><tr><td>Mayenne (53)</td><td class="num">9,0 %</td></tr><tr><td>Sarthe (72)</td><td class="num">13,0 %</td></tr><tr><td>Vendée (85)</td><td class="num">13,0 %</td></tr><tr class="pdl"><td><strong>Total Pays de la Loire</strong></td><td class="num"><strong>100,0 %</strong></td></tr></tbody></table></div>
     </section>
 <section class="indicator" id="ind-emploi-tb-04-art-des-associations-employeuses-en-parmi-les-associations-actives-du-waldeck">
-      <h3><span class="ind-num">20</span> Part des associations employeuses (en %) 
+      <h3><span class="ind-num">20</span> Part des associations employeuses (en %) 
 [parmi les associations actives du RNA_waldeck]</h3>
       <p class="meta">Source : Florès 2019 ; RNA_waldec 2022</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/emploi-tb-04-art-des-associations-employeuses-en-parmi-les-associations-actives-du-waldeck-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/emploi-tb-04-art-des-associations-employeuses-en-parmi-les-associations-actives-du-waldeck-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
@@ -1264,7 +1264,7 @@ déc-18</p>
     </section>
 <section class="indicator" id="ind-emploi-tb-06-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en">
       <h3><span class="ind-num">22</span> Evolution annuelle du nb de salariés en association - dernières années connues (en %)</h3>
-      <p class="meta">Source : Florès 2019 · Date : déc-19
+      <p class="meta">Source : Florès 2019 · Date : déc-19
 déc-18</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/emploi-tb-06-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/emploi-tb-06-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       
@@ -1576,7 +1576,7 @@ déc-18</p>
     </section>
 <section class="indicator" id="ind-aires-02-ssociations-d-une-commune-appartenant-a-un-grand-pole-10-000-emplois-ou-plus">
       <h3><span class="ind-num">65</span> Associations d'une commune appartenant à un grand pôle (10 000 emplois ou plus)</h3>
-      <p class="meta">Source : DATAGOUV – Fichier RNA_waldec · Date : 45689 · Note : Les définitions des notions utilisées dans ce fichier sont accessibles dans la rubrique &quot;Définitions, méthodes et qualité&quot; du site internet de l'Insee :
+      <p class="meta">Source : DATAGOUV – Fichier RNA_waldec · Date : 45689 · Note : Les définitions des notions utilisées dans ce fichier sont accessibles dans la rubrique &quot;Définitions, méthodes et qualité&quot; du site internet de l'Insee :
 https://www.insee.fr/fr/metadonnees/definitions</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-02-ssociations-d-une-commune-appartenant-a-un-grand-pole-10-000-emplois-ou-plus-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-02-ssociations-d-une-commune-appartenant-a-un-grand-pole-10-000-emplois-ou-plus-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-02-ssociations-d-une-commune-appartenant-a-un-grand-pole-10-000-emplois-ou-plus-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1591,7 +1591,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-04-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">67</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-04-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-04-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-04-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1613,7 +1613,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-07-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">70</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-07-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-07-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-07-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1635,7 +1635,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-10-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">73</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-10-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-10-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-10-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1657,7 +1657,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-13-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">76</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-13-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-13-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-13-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1679,7 +1679,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-16-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">79</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-16-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-16-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-16-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1701,7 +1701,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-19-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">82</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-19-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-19-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-19-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1723,7 +1723,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-22-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">85</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-22-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-22-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-22-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1745,7 +1745,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-25-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">88</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-25-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-25-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-25-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1767,7 +1767,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-28-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">91</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-28-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-28-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-28-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1796,7 +1796,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-aires-32-ombre-d-associations-pour-1000-habitants">
       <h3><span class="ind-num">95</span> Nombre d'associations pour 1000 habitants*</h3>
-      <p class="meta">Source : Fichier RNA_waldec
+      <p class="meta">Source : Fichier RNA_waldec
 *Insee RP 2019 · Date : 45689</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/aires-32-ombre-d-associations-pour-1000-habitants-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/aires-32-ombre-d-associations-pour-1000-habitants-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       <figure class="fig-block"><img src="assets/figures/aires-32-ombre-d-associations-pour-1000-habitants-hist.png" alt="Historique" loading="lazy"/><figcaption>Historique</figcaption></figure>
@@ -1816,7 +1816,7 @@ https://www.insee.fr/fr/metadonnees/definitions</p>
     </section>
 <section class="indicator" id="ind-flores-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en">
       <h3><span class="ind-num">97</span> Evolution annuelle du nb d'associations employeuses - dernières années connues (en %)</h3>
-      <p class="meta">Source : Florès 2023 · Date : déc-23
+      <p class="meta">Source : Florès 2023 · Date : déc-23
 déc-22</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/flores-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/flores-02-volution-annuelle-du-nb-d-associations-employeuses-dernieres-annees-connues-en-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       
@@ -1838,7 +1838,7 @@ déc-22</p>
     </section>
 <section class="indicator" id="ind-flores-05-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en">
       <h3><span class="ind-num">100</span> Evolution annuelle du nb de salariés en association - dernières années connues (en %)</h3>
-      <p class="meta">Source : Florès 2023 · Date : déc-23
+      <p class="meta">Source : Florès 2023 · Date : déc-23
 déc-22 · Note : -1</p>
       <div class="grid-2"><figure class="fig-block"><img src="assets/figures/flores-05-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en-bar.png" alt="Comparaison par département" loading="lazy"/><figcaption>Comparaison par département</figcaption></figure><figure class="fig-block"><img src="assets/figures/flores-05-volution-annuelle-du-nb-de-salaries-en-association-dernieres-annees-connues-en-map.png" alt="Carte des départements" loading="lazy"/><figcaption>Carte des départements</figcaption></figure></div>
       
@@ -1907,11 +1907,11 @@ déc-22 · Note : -1</p>
     <div class="table-scroll"><table class="data-table"><thead><tr><th>dep</th><th>arrondissement</th><th>actives</th><th>evol</th><th>per1000</th></tr></thead><tbody><tr><td>44</td><td>Châteaubriant-Ancenis</td><td>0.15332696</td><td>1170</td><td>0.28023952</td></tr><tr><td>44</td><td>Nantes</td><td>0.64233982</td><td>4560</td><td>0.25912035</td></tr><tr><td>44</td><td>Saint-Nazaire</td><td>0.20433322</td><td>1637</td><td>0.30214101</td></tr><tr><td>49</td><td>Angers</td><td>0.53694371</td><td>1445</td><td>0.10254045</td></tr><tr><td>49</td><td>Cholet</td><td>0.21800696</td><td>2190</td><td>0.51994302</td></tr><tr><td>49</td><td>Saumur</td><td>0.17843708</td><td>2241</td><td>0.76250425</td></tr><tr><td>49</td><td>Segré</td><td>0.06661225</td><td> 244</td><td>0.14454976</td></tr><tr><td>53</td><td>Château-Gontier</td><td>0.28906055</td><td> 209</td><td>0.09689383</td></tr><tr><td>53</td><td>Laval</td><td>0.33528532</td><td> 493</td><td>0.20978723</td></tr><tr><td>72</td><td>La Flèche</td><td>0.26668897</td><td> 514</td><td>0.11628959</td></tr><tr><td>72</td><td>Le Mans</td><td>0.49400480</td><td> 897</td><td>0.10846433</td></tr><tr><td>72</td><td>Mamers</td><td>0.23930623</td><td> 434</td><td>0.10945776</td></tr><tr><td>85</td><td>Fontenay-le-Comte</td><td>0.19058574</td><td> 531</td><td>0.18670886</td></tr><tr><td>85</td><td>La Roche-sur-Yon</td><td>0.52456792</td><td>1239</td><td>0.15404700</td></tr><tr><td>85</td><td>Les Sables-d'Olonne</td><td>0.28484634</td><td>1098</td><td>0.26611730</td></tr></tbody></table></div></section>
 <section class="theme" id="methodo">
 <h2>Méthodologie et définitions</h2>
-<div class="methodo-text">Sources :<br/>Fichier RNA_Waldec  ; Insee-Florès ; Insee-Recensement de la population<br/>Précision : la base RNA_Waldec regroupe toutes les associations créées depuis 2009 ou ayant fait une déclaration depuis 2009.<br/>Précautions concernant les comparaisons entre deux versions distinctes du tableau de bord :
-Les associations toujours en activité mais n'ayant pas fait de déclarations depuis 2009 ne sont pas présentes dans la base  RNA_Waldec.
-Ainsi, si ces associations ont fait une déclaration entre 2019 et 2020 (changement statut, changement d'adresse, changement de président...), elles se retrouvent dans la base RNA_Waldeck de 2020, alors qu'elles n'étaient pas  présentes dans celle de 2019 (bien qu'elles existaient).
-L'évolution du nombre d'associations est donc à prendre avec précaution, car celle-ci ne peut être attribuée qu'aux seules créations et dissolutions officiellement enregistrées.<br/>Onglets : &quot;Compléments-Cat Aires Urbaines&quot;<br/>Une aire urbaine ou « grande aire urbaine » est un ensemble de communes, d'un seul tenant et sans enclave, constitué par un pôle urbain (unité urbaine) de plus de 10 000 emplois, et par des communes rurales ou unités urbaines (couronne périurbaine) dont au moins 40 % de la population résidente ayant un emploi travaille dans le pôle ou dans des communes attirées par celui-ci.<br/>Le zonage en aires urbaines 2010 distingue également :
--les « moyennes aires », ensemble de communes, d'un seul tenant et sans enclave, constitué par un pôle urbain (unité urbaine) de 5 000 à 10 000 emplois, et par des communes rurales ou unités urbaines dont au moins 40 % de la population résidente ayant un emploi travaille dans le pôle ou dans des communes attirées par celui-ci.
+<div class="methodo-text">Sources :<br/>Fichier RNA_Waldec  ; Insee-Florès ; Insee-Recensement de la population<br/>Précision : la base RNA_Waldec regroupe toutes les associations créées depuis 2009 ou ayant fait une déclaration depuis 2009.<br/>Précautions concernant les comparaisons entre deux versions distinctes du tableau de bord :
+Les associations toujours en activité mais n'ayant pas fait de déclarations depuis 2009 ne sont pas présentes dans la base  RNA_Waldec.
+Ainsi, si ces associations ont fait une déclaration entre 2019 et 2020 (changement statut, changement d'adresse, changement de président...), elles se retrouvent dans la base RNA_Waldeck de 2020, alors qu'elles n'étaient pas  présentes dans celle de 2019 (bien qu'elles existaient).
+L'évolution du nombre d'associations est donc à prendre avec précaution, car celle-ci ne peut être attribuée qu'aux seules créations et dissolutions officiellement enregistrées.<br/>Onglets : &quot;Compléments-Cat Aires Urbaines&quot;<br/>Une aire urbaine ou « grande aire urbaine » est un ensemble de communes, d'un seul tenant et sans enclave, constitué par un pôle urbain (unité urbaine) de plus de 10 000 emplois, et par des communes rurales ou unités urbaines (couronne périurbaine) dont au moins 40 % de la population résidente ayant un emploi travaille dans le pôle ou dans des communes attirées par celui-ci.<br/>Le zonage en aires urbaines 2010 distingue également :
+-les « moyennes aires », ensemble de communes, d'un seul tenant et sans enclave, constitué par un pôle urbain (unité urbaine) de 5 000 à 10 000 emplois, et par des communes rurales ou unités urbaines dont au moins 40 % de la population résidente ayant un emploi travaille dans le pôle ou dans des communes attirées par celui-ci.
 -les « petites aires », ensemble de communes, d'un seul tenant et sans enclave, constitué par un pôle (unité urbaine) de 1 500 à 5 000 emplois, et par des communes rurales ou unités urbaines dont au moins 40 % de la population résidente ayant un emploi travaille dans le pôle ou dans des communes attirées par celui-ci.<br/>Pour en savoir plus sur la géographie :<br/>https://www.insee.fr/fr/information/2016807<br/>Associations dissoutes :<br/>Associations pour lesquelles le fichier RNA_Waldec mentionne une date de dissolution.</div>
 </section>
 <!-- DATA-SOURCE-END -->
