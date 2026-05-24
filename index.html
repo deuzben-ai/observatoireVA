@@ -102,6 +102,15 @@ html, body {
   margin-left: 0.5rem;
   vertical-align: middle;
 }
+/* Bloc titre centré dans le header */
+.app-header__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
 .app-header__title {
   display: flex;
   align-items: center;
@@ -112,19 +121,22 @@ html, body {
   letter-spacing: -0.025em;
   color: var(--c-text);
   line-height: 1.15;
+  text-align: center;
+  justify-content: center;
 }
 .app-header__sub {
   font-size: .8rem;
   color: var(--c-muted);
   font-weight: 500;
   margin-top: 0.1rem;
+  text-align: center;
 }
-.app-header__meta {
-  margin-left: auto;
-  font-size: .75rem;
-  color: var(--c-muted);
-  text-align: right;
-  line-height: 1.4;
+/* Bloc droite : focus + aide */
+.app-header__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 /* ===== SIDEBAR ===== */
@@ -134,10 +146,19 @@ html, body {
   background: var(--c-card);
   border-right: 1px solid var(--c-border);
   overflow-y: auto;
-  padding: 2.25rem 1.25rem; /* More breathing room */
+  padding: 2.25rem 1.25rem 1.25rem; /* Less bottom padding — meta takes over */
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+.sidebar__meta {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-border);
+  font-size: .72rem;
+  color: var(--c-muted);
+  line-height: 1.55;
+  text-align: center;
 }
 .sidebar__label {
   font-size: .75rem;
@@ -548,7 +569,6 @@ html, body {
   border-radius: 9999px;
   border: 1px solid var(--c-border);
   gap: 2px;
-  margin-left: 1.5rem;
   flex-shrink: 0;
 }
 .focus-btn {
@@ -581,11 +601,15 @@ html, body {
     row-gap: .5rem;
     padding: .5rem .75rem;
   }
-  .app-header__meta {
-    display: none;
+  .app-header__center {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+  .app-header__right {
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
   .focus-selector {
-    margin-left: 0;
     order: 3;
     width: 100%;
     justify-content: space-around;
@@ -930,32 +954,29 @@ html, body {
     <div class="app-header__logo-container">
       <img src="assets/logo.png" alt="Ministère des Sports, de la Jeunesse et de la Vie Associative" class="app-header__logo">
     </div>
-    <div>
+
+    <!-- Bloc titre centré -->
+    <div class="app-header__center">
       <h1 class="app-header__title">
         Observatoire de la vie associative
         <span class="focus-badge-pill" id="header-badge">R</span>
       </h1>
       <div class="app-header__sub" id="header-sub">Pays de la Loire (Région)</div>
     </div>
-    
-    <div class="focus-selector" role="group" aria-label="Choisir le focus géographique">
-      <button class="focus-btn active" data-focus="region" title="Afficher les données de la Région (Annuler le focus)">Région</button>
-      <button class="focus-btn" data-focus="44" title="Focus Loire-Atlantique">44</button>
-      <button class="focus-btn" data-focus="49" title="Focus Maine-et-Loire">49</button>
-      <button class="focus-btn" data-focus="53" title="Focus Mayenne">53</button>
-      <button class="focus-btn" data-focus="72" title="Focus Sarthe">72</button>
-      <button class="focus-btn" data-focus="85" title="Focus Vendée">85</button>
-    </div>
 
-    <button class="help-btn" id="help-btn" title="Afficher le mode d'emploi" aria-label="Mode d'emploi">?</button>
-
-    <div class="app-header__meta">
-      RNA réf. <strong>01/02/2025</strong><br>
-      296 graphiques · 108 indicateurs
+    <!-- Bloc droite : sélecteur de focus + aide + hamburger -->
+    <div class="app-header__right">
+      <div class="focus-selector" role="group" aria-label="Choisir le focus géographique">
+        <button class="focus-btn active" data-focus="region" title="Afficher les données de la Région">Région</button>
+        <button class="focus-btn" data-focus="44" title="Focus Loire-Atlantique">44</button>
+        <button class="focus-btn" data-focus="49" title="Focus Maine-et-Loire">49</button>
+        <button class="focus-btn" data-focus="53" title="Focus Mayenne">53</button>
+        <button class="focus-btn" data-focus="72" title="Focus Sarthe">72</button>
+        <button class="focus-btn" data-focus="85" title="Focus Vendée">85</button>
+      </div>
+      <button class="help-btn" id="help-btn" title="Afficher le mode d'emploi" aria-label="Mode d'emploi">?</button>
+      <button id="sidebar-toggle" aria-label="Menu">☰</button>
     </div>
-    <button id="sidebar-toggle" aria-label="Menu">
-      ☰
-    </button>
   </header>
 
   <!-- SIDEBAR -->
@@ -965,6 +986,11 @@ html, body {
       <div class="nav-pill" id="nav-pill"></div>
       <!-- items injectés par JS -->
     </nav>
+    <!-- Méta-données en bas de la sidebar -->
+    <div class="sidebar__meta">
+      RNA réf. <strong>01/02/2025</strong><br>
+      296 graphiques · 108 indicateurs
+    </div>
   </aside>
 
   <!-- MAIN -->
