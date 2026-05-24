@@ -71,23 +71,44 @@ html, body {
   gap: 1.25rem;
   z-index: 10;
 }
-.app-header__badge {
+.app-header__logo-container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 12px;
+  background: #ffffff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--c-border);
+  flex-shrink: 0;
+  height: 3.2rem;
+}
+.app-header__logo {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.focus-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
   background: linear-gradient(135deg, var(--c-focus), var(--c-focus-dark));
   color: #fff;
   font-family: 'Outfit', sans-serif;
-  font-weight: 900;
-  font-size: 1.15rem;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px var(--c-focus-bg);
-  transition: background var(--transition), box-shadow var(--transition);
+  font-weight: 800;
+  font-size: 0.8rem;
+  line-height: 1;
+  box-shadow: 0 2px 6px var(--c-focus-bg);
+  transition: all var(--transition);
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
 .app-header__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: 'Outfit', sans-serif;
   font-size: 1.35rem;
   font-weight: 800;
@@ -573,6 +594,20 @@ html, body {
     justify-content: space-around;
   }
 }
+@media (max-width: 480px) {
+  .app-header__logo-container {
+    height: 2.6rem;
+    padding: 0.15rem 0.35rem;
+  }
+  .app-header__title {
+    font-size: 1.1rem;
+    gap: 0.35rem;
+  }
+  .focus-badge-pill {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.35rem;
+  }
+}
 
 /* ===== INTERACTIVE MAP ===== */
 .map-pane-layout {
@@ -896,9 +931,14 @@ html, body {
 
   <!-- HEADER -->
   <header class="app-header">
-    <div class="app-header__badge" id="header-badge">R</div>
+    <div class="app-header__logo-container">
+      <img src="assets/logo.png" alt="Ministère des Sports, de la Jeunesse et de la Vie Associative" class="app-header__logo">
+    </div>
     <div>
-      <div class="app-header__title">Observatoire de la vie associative</div>
+      <h1 class="app-header__title">
+        Observatoire de la vie associative
+        <span class="focus-badge-pill" id="header-badge">R</span>
+      </h1>
       <div class="app-header__sub" id="header-sub">Pays de la Loire (Région)</div>
     </div>
     
